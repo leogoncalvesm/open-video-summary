@@ -1,0 +1,29 @@
+[project]
+name = "open-video-summary"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Leo", email = "leonardogmoraes2000@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy<2.0",
+    "pandas==2.2.3",
+    "tf-keras==2.17.0",
+    "tensorflow==2.17.1",
+    "types-tensorflow==2.18.0.20241227",
+    "opencv-python==4.10.0.84",
+    "sentence-transformers==3.3.1",
+    "pandas-stubs==2.2.3.241126",
+    "ipykernel==6.29.5",
+    "ffmpeg==1.4",
+    "moviepy==2.1.2",
+    "dacite==1.9.1",
+    "imageio==2.37.0",
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
