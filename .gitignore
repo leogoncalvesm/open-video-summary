@@ -1,6 +1,9 @@
 # Test directory, while no tests are built
 tests/
 
+# Models directory
+models/
+
 # Video files
 *.mp4
 
