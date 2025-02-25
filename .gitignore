@@ -7,6 +7,9 @@ tests/
 # Models directory
 models/
 
+# Raw data directory
+data/raw/*
+
 # Video files
 *.mp4
 
