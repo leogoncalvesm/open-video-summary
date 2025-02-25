@@ -1,7 +1,7 @@
 [
     {
         "name": "Bebe Real - Jornal da Record",
-        "path": "videos/bebe_real/jornal_da_record.mp4",
+        "path": "data/raw/bebe_real/jornal_da_record.mp4",
         "topics": [
             "Birth of Prince Harry and Meghan Markle's Baby",
             "Baby's Name and Nationality",
@@ -51,7 +51,7 @@
     },
     {
         "name": "Bebe Real - Jornal Nacional",
-        "path": "videos/bebe_real/jornal_nacional.mp4",
+        "path": "data/raw/bebe_real/jornal_nacional.mp4",
         "topics": [
             "Apresentação do filho de Harry e Meghan Markle",
             "Reação da multidão à chegada do bebê",
@@ -101,7 +101,7 @@
     },
     {
         "name": "Bebe Real - Jornal da Band",
-        "path": "videos/bebe_real/jornal_da_band.mp4",
+        "path": "data/raw/bebe_real/jornal_da_band.mp4",
         "topics": [
             "Birth of Prince Harry and Meghan Markle's son",
             "Naming of the royal baby, Archie Harrison Mountbatten-Windsor",
