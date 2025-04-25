@@ -61,8 +61,8 @@ class VideoSegment:
 class Video:
     name: str
     path: str
-    topics: list[str]
-    segments: list[VideoSegment]
+    topics: list[str] = field(default_factory=list)
+    segments: list[VideoSegment] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         for segment in self.segments:

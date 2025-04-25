@@ -1,6 +1,5 @@
-from typing import Iterable
+from numpy import ndarray
 
 
-def custom_cosine(v1: Iterable, v2: Iterable):
-    v1, v2 = list(v1), list(v2)
+def custom_cosine(v1: ndarray, v2: ndarray) -> float:
     return sum(v1[i] * v2[i] for i in range(len(v1)))

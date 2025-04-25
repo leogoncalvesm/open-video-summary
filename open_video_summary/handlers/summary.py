@@ -1,4 +1,6 @@
-from dataclasses import dataclass, field
+from json import dump, load
+from dacite import from_dict
+from dataclasses import dataclass, field, asdict
 
 from open_video_summary.utils import log
 from open_video_summary.entities.summary import SummaryLog
@@ -87,3 +89,15 @@ class SummarySegmentHandler:
         self.__to_pick.append(segments)
         self.__log_agent_action("pick", agent, segments)
         log.info("Added video segments to 'pick' set.")
+
+
+class SummarySegmentHandlerIO:
+    @staticmethod
+    def save(handler: SummarySegmentHandler, filepath: str) -> None:
+        log.info("Saving SummarySegmentHandler to disk file.")
+        dump(asdict(handler), open(filepath, "w"))
+
+    @staticmethod
+    def load(filepath: str) -> SummarySegmentHandler:
+        log.info("Loading SummarySegmentHandler from disk file.")
+        return from_dict(SummarySegmentHandler, load(open(filepath, "r")))

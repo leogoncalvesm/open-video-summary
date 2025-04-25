@@ -1,9 +1,8 @@
 from math import log10
-from typing import Any
 from pandas import DataFrame
 from collections import Counter
 from sklearn.cluster import KMeans  # type: ignore
-from numpy import concatenate, ndarray
+from numpy import concatenate
 from cv2 import (
     calcHist,
     normalize,
@@ -15,11 +14,12 @@ from cv2 import (
 
 from open_video_summary.utils import log
 from open_video_summary.entities.image import Keyframe
+from open_video_summary.entities.video import VideoSegment
 from open_video_summary.handlers.image import KeyframeHandler
 
 
 class BagOfVisualWords:
-    def __init__(self, items: dict[Any, ndarray], dict_size: int) -> None:
+    def __init__(self, items: dict[VideoSegment, list], dict_size: int) -> None:
         self.__items = items
         self.__dict_size = dict_size
         self.__kmeans = None

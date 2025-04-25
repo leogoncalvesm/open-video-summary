@@ -1,5 +1,5 @@
-from pandas import DataFrame
 from typing import Callable
+from pandas import DataFrame
 
 from open_video_summary.utils import log
 from open_video_summary.entities.video import VideoSegment
@@ -23,7 +23,11 @@ class QualityPick(SelectionCriteria):
         self.features_extractor = features_extractor
 
     def evaluate(self, handler: SummarySegmentHandler) -> SummarySegmentHandler:
-        clusters = self.get_criteria_input(handler)
+        clusters = [
+            cluster
+            for cluster in self.get_criteria_input(handler)
+            if isinstance(cluster, set)
+        ]
         log.info(f"Retrieved {len(clusters)} cluster to execute {self.name} criteria.")
 
         for cluster in clusters:
