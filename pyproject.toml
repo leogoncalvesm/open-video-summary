@@ -16,22 +16,26 @@ dependencies = [
     "types-tensorflow==2.18.0.20241227",
     "opencv-python==4.10.0.84",
     "sentence-transformers==3.3.1",
-    "ipykernel==6.29.5",
     "ffmpeg==1.4",
     "moviepy==2.1.2",
     "dacite==1.9.1",
     "imageio==2.37.0",
-    "gdown==5.2.0",
-    "black==25.1.0",
-    "black[jupyter]",
     "whisper-timestamped==1.15.8",
     "SpeechRecognition==3.10.4",
-    "openai==0.28",
-    "ollama==0.3.3",
+    "openai (==3.3.0)",
+    "ollama (>=0.6.2,<0.7.0)",
     "faker==37.0.2",
-    "kagglehub (>=0.3.12,<0.4.0)",
     "matplotlib (>=3.10.3,<4.0.0)",
 ]
+
+[tool.poetry.group.dev.dependencies]
+gdown = "5.2.0"
+deepeval = "4.1.8"
+ipykernel = "6.29.5"
+kagglehub = "^1.0.2"
+black = {extras = ["jupyter"], version = "^26.5.1"}
+bert-score = "^0.3.13"
+rouge-score = "^0.1.2"
 
 
 [build-system]
