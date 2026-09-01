@@ -75,6 +75,12 @@ class VideoDumper:
 
 
 class SummaryWriter:
+
+    @staticmethod
+    def write_summary_to_json(video: Video, json_file: str) -> None:
+        with open(json_file, "w") as file:
+            dump(asdict(video), file, indent=4, ensure_ascii=False)
+
     @staticmethod
     def write_video_summary(
         video: Video, fadein_seconds: float = 0.5, fadeout_seconds: float = 0.5
