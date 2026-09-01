@@ -6,6 +6,7 @@ PROJECT_DIR = Path(__file__).parent.parent.parent
 class DataPaths:
     RAW_PATH: str = (PROJECT_DIR / "data/raw/").as_posix()
     PROCESSED_PATH: str = (PROJECT_DIR / "data/processed/").as_posix()
+    OUTPUT_PATH: str = (PROJECT_DIR / "data/output/").as_posix()
 
 
 class ModelPaths:
