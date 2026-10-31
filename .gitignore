@@ -19,6 +19,9 @@ data/raw/*
 # Log files
 *.log
 
+# Deepeval evaluations
+.deepeval
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
