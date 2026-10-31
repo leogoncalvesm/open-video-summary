@@ -26,6 +26,7 @@ class TopicsBasedVideoSegmenter(BaseVideoSegmenter):
         min_segment_length: int = 10,
         max_segment_length: Optional[int] = None,
         max_subtopics: Optional[int] = None,
+        temperature: Optional[float] = 0.05,
         prompts_template: VideoSegmenterPrompts = VideoSegmenterPrompts(),
         llm_adapter: LLMAdapter = OllamaAdapter(),
     ) -> None:
@@ -33,6 +34,7 @@ class TopicsBasedVideoSegmenter(BaseVideoSegmenter):
         self.min_segment_length = min_segment_length
         self.max_segment_length = max_segment_length
         self.max_subtopics = max_subtopics
+        self.temperature = temperature
         self.prompts_template = prompts_template
         self.llm_adapter = llm_adapter
 
@@ -50,12 +52,11 @@ class TopicsBasedVideoSegmenter(BaseVideoSegmenter):
         self,
         prompt: str,
         pattern: str = "([\w \.\?!,:;ºª\-]+)",
-        temperature: float = 0.2,
     ) -> str:
         response = self.llm_adapter.generate_pattern(
             prompt=prompt,
             pattern=pattern,
-            options={"format": "json", "temperature": temperature},
+            options={"format": "json", "temperature": self.temperature},
         )
         return response.strip()
 
@@ -102,6 +103,7 @@ class WordVideoSegmenter(TopicsBasedVideoSegmenter):
         max_segment_length: Optional[int] = None,
         max_subtopics: Optional[int] = None,
         sentence_boundary: str = ".!?",
+        temperature: Optional[float] = 0.05,
         prompts_template: VideoSegmenterPrompts = VideoSegmenterPrompts(),
         llm_adapter: LLMAdapter = OllamaAdapter(),
     ) -> None:
@@ -110,6 +112,7 @@ class WordVideoSegmenter(TopicsBasedVideoSegmenter):
             min_segment_length=min_segment_length,
             max_segment_length=max_segment_length,
             max_subtopics=max_subtopics,
+            temperature=temperature,
             prompts_template=prompts_template,
             llm_adapter=llm_adapter,
         )
@@ -120,10 +123,10 @@ class WordVideoSegmenter(TopicsBasedVideoSegmenter):
         audio = whisper.load_audio(video_path)
         return whisper.transcribe(model, audio, language=language, verbose=True)
 
-    def get_words_from_segments(self, segments: list[dict]) -> list[dict]:
+    def get_word_list_from_segments(self, segments: list[dict]) -> list[dict]:
         return list(chain.from_iterable([seg["words"] for seg in segments]))
 
-    def get_segments_from_words(self, words: list[dict]) -> list[VideoSegment]:
+    def get_segments_from_word_list(self, words: list[dict]) -> list[VideoSegment]:
         segments: list[VideoSegment] = []
         curr_seg_data: dict = {"start": None, "end": None, "words": []}
 
@@ -173,7 +176,7 @@ class WordVideoSegmenter(TopicsBasedVideoSegmenter):
             topics_str = self.llm_adapter.generate_pattern(
                 prompt=prompt,
                 pattern="(\{.*?\})",
-                options={"format": "json", "temperature": 0.2},
+                options={"format": "json", "temperature": self.temperature},
             )
 
             segment_topic = literal_eval(topics_str)
@@ -205,8 +208,8 @@ class WordVideoSegmenter(TopicsBasedVideoSegmenter):
         segmented_document = whisper_result.get("segments")
         full_document = whisper_result.get("text")
 
-        video_segments = self.get_segments_from_words(
-            self.get_words_from_segments(segmented_document)
+        video_segments = self.get_segments_from_word_list(
+            self.get_word_list_from_segments(segmented_document)
         )
 
         # Adding topics to video dataclass
@@ -319,7 +322,7 @@ class ClusteredVideoSegmenter(TopicsBasedVideoSegmenter):
             topics_str = self.llm_adapter.generate_pattern(
                 prompt=prompt,
                 pattern="(\{.*?\})",
-                options={"format": "json", "temperature": 0.2},
+                options={"format": "json", "temperature": self.temperature},
             )
 
             cluster_topic = literal_eval(topics_str)
