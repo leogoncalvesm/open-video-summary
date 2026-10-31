@@ -75,7 +75,6 @@ class VideoDumper:
 
 
 class SummaryWriter:
-
     @staticmethod
     def write_summary_to_json(video: Video, json_file: str) -> None:
         with open(json_file, "w") as file:
